@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShoreSmart | Beach Planning Made Easy</title>
+  <link rel="stylesheet" href="css/index.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">ShoreSmart</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#get-started">Get Started</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <h1>ShoreSmart</h1>
+      <p>Your Budget-Based Beach Recommendation & Reservation System in Cebu</p>
+      <a href="#get-started" class="btn-primary">Get Started</a>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <div class="container">
+      <h2>Plan Your Beach Trip Smarter</h2>
+      <p>ShoreSmart is your ultimate companion for planning the perfect beach getaway in Cebu. Designed with budget-conscious travelers, students, and families in mind, our platform helps you discover the best beaches and resorts tailored to your budget, preferred location, and desired amenities. Easily compare entrance fees, available facilities, and special services across multiple resorts to make informed decisions without the hassle of visiting each website individually. Beyond just information, ShoreSmart allows you to reserve your spot directly through our system, ensuring a smooth, organized, and stress-free beach experience. With user reviews, ratings, and transparent cost breakdowns, you can plan your trip with confidence while supporting local tourism and discovering hidden gems along Cebu’s stunning coastline. Whether it’s a short weekend trip or a full vacation, ShoreSmart makes every beach adventure smarter, more enjoyable, and perfectly suited to your needs.</p>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="container">
+      <h2>Why Choose ShoreSmart?</h2>
+      <div class="feature-grid">
+        <div class="feature">
+          <i class="fas fa-wallet fa-3x"></i>
+          <h3>Budget-Friendly</h3>
+          <p>Find resorts that match your financial plan and avoid overspending.</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-check-circle fa-3x"></i>
+          <h3>Easy Comparison</h3>
+          <p>View prices, amenities, and distances to make informed choices quickly.</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-calendar-check fa-3x"></i>
+          <h3>Seamless Reservation</h3>
+          <p>Reserve your spot online hassle-free, so you can focus on fun.</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-umbrella-beach fa-3x"></i>
+          <h3>Support Local Tourism</h3>
+          <p>Promote small beach resorts in Cebu and help boost local tourism.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action Section -->
+  <section class="cta" id="get-started">
+    <div class="container">
+      <h2>Ready to Plan Your Beach Adventure?</h2>
+      <p>Sign up or log in to start exploring beaches that fit your budget and preferences!</p>
+      <a href="login.html" class="btn-primary">Get Started</a>
+    </div>
+  </section>
+
+  <script>
+    // Smooth Scroll for Navbar Links
+    const links = document.querySelectorAll('nav a');
+    for (const link of links) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const href = this.getAttribute('href');
+        document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+  </script>
+
+</body>
+</html>

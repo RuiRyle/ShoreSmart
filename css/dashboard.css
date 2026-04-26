@@ -1,0 +1,177 @@
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background: #f7f7f7;
+  color: #222;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: linear-gradient(90deg, #0077cc, #00a8ff);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  color: white;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+}
+
+.nav-search input {
+  width: 280px;
+  padding: 10px 14px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+}
+
+.logout-btn {
+  background: white;
+  color: #0077cc;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.hero {
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px;
+  background: linear-gradient(180deg, #e6f4ff, #ffffff);
+}
+
+.search-card {
+  background: white;
+  width: 100%;
+  max-width: 650px;
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.search-card h1 {
+  margin-bottom: 5px;
+  color: #0077cc;
+}
+
+.search-card p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.search-box {
+  display: flex;
+  gap: 10px;
+}
+
+.search-box input,
+.search-box select {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #cfe8ff;
+  outline: none;
+}
+
+.search-box button {
+  background: linear-gradient(90deg, #0077cc, #00a8ff);
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.search-box button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0,120,255,0.3);
+}
+
+.listings {
+  padding: 20px 50px;
+}
+
+.listings h2 {
+  margin-bottom: 15px;
+  color: #0077cc;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.beach-card {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  transition: 0.25s ease;
+  position: relative;
+}
+
+.beach-card:hover {
+  transform: translateY(-6px);
+}
+
+.beach-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 15px;
+}
+
+.card-content h3 {
+  margin: 0;
+  color: #0077cc;
+}
+
+.card-content p {
+  color: #555;
+  font-size: 14px;
+}
+
+.reserve-btn {
+  margin-top: 10px;
+  background: linear-gradient(90deg, #0077cc, #00a8ff);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.reserve-btn:hover {
+  opacity: 0.9;
+}
+
+
+* {
+  transition: all 0.2s ease;
+}
+
+input:focus,
+select:focus {
+  border: 1px solid #00a8ff;
+  box-shadow: 0 0 0 3px rgba(0,168,255,0.15);
+}
+

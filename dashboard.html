@@ -1,0 +1,56 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShoreSmart</title>
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">ShoreSmart</div>
+
+  <div class="nav-search">
+    <input type="text" placeholder="Search beaches, resorts..." />
+  </div>
+
+  <div class="nav-user">
+    <button class="logout-btn">Logout</button>
+  </div>
+</nav>
+
+<!-- HERO SEARCH -->
+<section class="hero">
+  <div class="search-card">
+    <h1>Find your perfect beach stay</h1>
+    <p>Discover beaches in Cebu based on your budget</p>
+
+    <div class="search-box">
+      <input type="number" id="budget" placeholder="Budget (₱)">
+      
+      <select id="location">
+        <option value="">Location</option>
+        <option value="north">North Cebu</option>
+        <option value="south">South Cebu</option>
+      </select>
+
+      <button onclick="findBeaches()">Search</button>
+    </div>
+  </div>
+</section>
+
+<!-- LISTINGS -->
+<section class="listings">
+  <h2>Stays near you</h2>
+  <div id="beach-list" class="grid"></div>
+</section>
+
+<script type="module" src="js/dashboard.js"></script>
+</body>
+</html>
