@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShoreSmart | Owner Dashboard</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="css/owner-dashboard.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-logo">Shore<span>Smart</span></div>
+
+  <div class="nav-center">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+      <polyline points="9 22 9 12 15 12 15 22"/>
+    </svg>
+    Owner Dashboard
+  </div>
+
+  <div class="nav-right">
+    <div class="owner-name">
+      Logged in as <strong id="nav-owner-name">—</strong>
+    </div>
+    <button class="btn-logout" id="logout-btn">Logout</button>
+  </div>
+</nav>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="sidebar-title" id="form-mode-title">
+      Add New Listing
+    </div>
+
+    <div class="sidebar-sub">
+      Fill in the details below to publish your beach property on ShoreSmart.
+    </div>
+
+    <div id="form-alert" class="alert"></div>
+
+    <form id="listing-form">
+
+      <input type="hidden" id="edit-id">
+
+      <div class="form-section">
+        <div class="form-section-label">Basic Info</div>
+
+        <label>Beach / Resort Name</label>
+        <input type="text" id="f-name" required>
+
+        <label>Description</label>
+        <textarea id="f-desc"></textarea>
+
+        <label>Location</label>
+        <select id="f-location" required>
+          <option value="">Select location</option>
+          <option value="north">North Cebu</option>
+          <option value="south">South Cebu</option>
+        </select>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-label">Pricing</div>
+
+        <label>Price per Night (₱)</label>
+        <input type="number" id="f-price" min="0" required>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-label">Contact</div>
+
+        <label>Contact Number</label>
+        <input type="tel" id="f-contact">
+
+        <label>Facebook / Website</label>
+        <input type="url" id="f-website">
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-label">Photo</div>
+
+        <label>Image URL</label>
+        <input type="url" id="f-image">
+
+        <div class="img-preview-wrap">
+          <div class="img-placeholder" id="img-placeholder">
+            Image preview
+          </div>
+
+          <img id="img-preview" class="img-preview">
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-label">Amenities</div>
+
+        <div class="amenities-grid">
+
+          <label class="amenity-check">
+            <input type="checkbox" value="WiFi"> WiFi
+          </label>
+
+          <label class="amenity-check">
+            <input type="checkbox" value="Pool"> Pool
+          </label>
+
+          <label class="amenity-check">
+            <input type="checkbox" value="Parking"> Parking
+          </label>
+
+          <label class="amenity-check">
+            <input type="checkbox" value="Restaurant"> Restaurant
+          </label>
+
+          <label class="amenity-check">
+            <input type="checkbox" value="Air-con"> Air-con
+          </label>
+
+          <label class="amenity-check">
+            <input type="checkbox" value="Kayak"> Kayak
+          </label>
+
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit" id="form-submit-btn">
+        Publish Listing
+      </button>
+
+      <button type="button"
+              class="btn-submit"
+              id="cancel-edit-btn"
+              style="display:none; background: rgba(255,255,255,0.07); margin-top:10px;">
+        Cancel Edit
+      </button>
+
+    </form>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <div class="main-header">
+      <div>
+        <div class="main-title">
+          Your <span>Listings</span>
+        </div>
+      </div>
+
+      <div class="listings-count" id="listings-count">
+        Loading...
+      </div>
+    </div>
+
+    <div class="stats-bar">
+
+      <div class="stat-card">
+        <div class="stat-label">Total Listings</div>
+        <div class="stat-value blue" id="stat-total">—</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Lowest Price</div>
+        <div class="stat-value" id="stat-min">—</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Avg. Price / Night</div>
+        <div class="stat-value" id="stat-avg">—</div>
+      </div>
+
+    </div>
+
+    <div class="listings-grid" id="listings-grid">
+      <div class="loading-state">
+        Loading your listings...
+      </div>
+    </div>
+
+  </main>
+
+</div>
+
+<!-- External JS -->
+<script type="module" src="js/owner-dashboard.js"></script>
+
+</body>
+</html>

@@ -1,56 +1,79 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShoreSmart | Discover Beaches</title>
 
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ShoreSmart</title>
-  <link rel="stylesheet" href="css/dashboard.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-</head>
+    <!-- CSS FILE -->
+    <link rel="stylesheet" href="css/dashboard.css">
+  </head>
 
-<body>
+  <body>
 
-<!-- NAVBAR -->
-<nav class="navbar">
-  <div class="logo">ShoreSmart</div>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a class="nav-logo" href="dashboard.html">Shore<span>Smart</span></a>
 
-  <div class="nav-search">
-    <input type="text" placeholder="Search beaches, resorts..." />
-  </div>
-
-  <div class="nav-user">
-    <button class="logout-btn">Logout</button>
-  </div>
-</nav>
-
-<!-- HERO SEARCH -->
-<section class="hero">
-  <div class="search-card">
-    <h1>Find your perfect beach stay</h1>
-    <p>Discover beaches in Cebu based on your budget</p>
-
-    <div class="search-box">
-      <input type="number" id="budget" placeholder="Budget (₱)">
-      
-      <select id="location">
-        <option value="">Location</option>
-        <option value="north">North Cebu</option>
-        <option value="south">South Cebu</option>
-      </select>
-
-      <button onclick="findBeaches()">Search</button>
+    <div class="nav-search">
+      <svg class="nav-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="text" placeholder="Search beaches, resorts..." id="nav-search-input">
     </div>
-  </div>
-</section>
 
-<!-- LISTINGS -->
-<section class="listings">
-  <h2>Stays near you</h2>
-  <div id="beach-list" class="grid"></div>
-</section>
+    <div class="nav-right">
+      <div class="nav-greeting">Hello, <strong id="user-display-name">Guest</strong></div>
+      <button class="btn-logout" id="btn-logout">Logout</button>
+    </div>
+  </nav>
 
-<script type="module" src="js/dashboard.js"></script>
-</body>
-</html>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-rings">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">Cebu's Beach Marketplace</div>
+      <h1 class="hero-title">Find your perfect<br><em>beach escape</em></h1>
+      <p class="hero-sub">Browse curated resorts and beach stays across Cebu — filtered to your budget.</p>
+
+      <div class="search-box">
+        <input type="number" id="budget" placeholder="Max budget (₱)" min="0">
+        <select id="location">
+          <option value="">All Locations</option>
+          <option value="north">North Cebu</option>
+          <option value="south">South Cebu</option>
+        </select>
+        <button class="search-btn" onclick="findBeaches()">Search →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- LISTINGS -->
+  <section class="listings-section">
+    <div class="section-header">
+      <div class="section-title">Available <span>Stays</span></div>
+      <div class="results-badge" id="results-badge">Loading...</div>
+    </div>
+
+    <div class="filter-chips">
+      <div class="chip active" data-filter="all" onclick="filterChip(this, 'all')">All</div>
+      <div class="chip" data-filter="north" onclick="filterChip(this, 'north')">North Cebu</div>
+      <div class="chip" data-filter="south" onclick="filterChip(this, 'south')">South Cebu</div>
+    </div>
+
+    <div class="beach-list" id="beach-list"></div>
+  </section>
+
+  <!-- JS FILE -->
+  <script type="module" src="js/dashboard.js"></script>
+
+  </body>
+  </html>

@@ -4,89 +4,376 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ShoreSmart | Beach Planning Made Easy</title>
-  <link rel="stylesheet" href="css/index.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="css/index.css">
 </head>
+
 <body>
 
-  <!-- Navbar -->
-  <nav>
-    <div class="logo">ShoreSmart</div>
+  <!-- ── NAVBAR ── -->
+  <nav id="navbar">
+    <a class="nav-logo" href="index.html">Shore<span>Smart</span></a>
+
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#features">Features</a></li>
-      <li><a href="#get-started">Get Started</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="login.html" class="nav-cta">Get Started</a></li>
     </ul>
   </nav>
 
-  <!-- Hero Section -->
+  <!-- ── HERO ── -->
   <section class="hero">
-    <div class="overlay"></div>
+
+    <div class="hero-bg"></div>
+
+    <div class="hero-atmosphere"></div>
+
+    <div class="hero-rings">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+    </div>
+
+    <!-- Floating particles -->
+    <div class="particle"
+         style="width:5px;height:5px;left:12%;animation-duration:15s;animation-delay:0s">
+    </div>
+
+    <div class="particle"
+         style="width:3px;height:3px;left:30%;animation-duration:20s;animation-delay:-6s">
+    </div>
+
+    <div class="particle"
+         style="width:7px;height:7px;left:65%;animation-duration:13s;animation-delay:-9s">
+    </div>
+
+    <div class="particle"
+         style="width:4px;height:4px;left:82%;animation-duration:18s;animation-delay:-3s">
+    </div>
+
     <div class="hero-content">
-      <h1>ShoreSmart</h1>
-      <p>Your Budget-Based Beach Recommendation & Reservation System in Cebu</p>
-      <a href="#get-started" class="btn-primary">Get Started</a>
-    </div>
-  </section>
 
-  <!-- About Section -->
-  <section class="about" id="about">
-    <div class="container">
-      <h2>Plan Your Beach Trip Smarter</h2>
-      <p>ShoreSmart is your ultimate companion for planning the perfect beach getaway in Cebu. Designed with budget-conscious travelers, students, and families in mind, our platform helps you discover the best beaches and resorts tailored to your budget, preferred location, and desired amenities. Easily compare entrance fees, available facilities, and special services across multiple resorts to make informed decisions without the hassle of visiting each website individually. Beyond just information, ShoreSmart allows you to reserve your spot directly through our system, ensuring a smooth, organized, and stress-free beach experience. With user reviews, ratings, and transparent cost breakdowns, you can plan your trip with confidence while supporting local tourism and discovering hidden gems along Cebu’s stunning coastline. Whether it’s a short weekend trip or a full vacation, ShoreSmart makes every beach adventure smarter, more enjoyable, and perfectly suited to your needs.</p>
-    </div>
-  </section>
-
-  <!-- Features Section -->
-  <section class="features" id="features">
-    <div class="container">
-      <h2>Why Choose ShoreSmart?</h2>
-      <div class="feature-grid">
-        <div class="feature">
-          <i class="fas fa-wallet fa-3x"></i>
-          <h3>Budget-Friendly</h3>
-          <p>Find resorts that match your financial plan and avoid overspending.</p>
-        </div>
-        <div class="feature">
-          <i class="fas fa-check-circle fa-3x"></i>
-          <h3>Easy Comparison</h3>
-          <p>View prices, amenities, and distances to make informed choices quickly.</p>
-        </div>
-        <div class="feature">
-          <i class="fas fa-calendar-check fa-3x"></i>
-          <h3>Seamless Reservation</h3>
-          <p>Reserve your spot online hassle-free, so you can focus on fun.</p>
-        </div>
-        <div class="feature">
-          <i class="fas fa-umbrella-beach fa-3x"></i>
-          <h3>Support Local Tourism</h3>
-          <p>Promote small beach resorts in Cebu and help boost local tourism.</p>
-        </div>
+      <div class="hero-eyebrow">
+        Cebu's Beach Marketplace
       </div>
+
+      <h1 class="hero-title">
+        Discover your<br>
+        perfect <em>beach escape</em>
+      </h1>
+
+      <p class="hero-sub">
+        Budget-based beach recommendations and reservations
+        for Cebu's finest resorts — tailored exactly to you.
+      </p>
+
+      <div class="hero-actions">
+        <a href="login.html" class="btn-primary">
+          Start Exploring →
+        </a>
+
+        <a href="#about" class="btn-secondary">
+          Learn More
+        </a>
+      </div>
+
+    </div>
+
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-dot"></div>
+    </div>
+
+    <!-- Stats strip at bottom of hero -->
+    <div class="hero-stats">
+
+      <div class="stat-item">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">Beach Resorts</div>
+      </div>
+
+      <div class="stat-item">
+        <div class="stat-number">2</div>
+        <div class="stat-label">Regions in Cebu</div>
+      </div>
+
+      <div class="stat-item">
+        <div class="stat-number">₱0</div>
+        <div class="stat-label">Free to Use</div>
+      </div>
+
+      <div class="stat-item">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Local Resorts</div>
+      </div>
+
     </div>
   </section>
 
-  <!-- Call to Action Section -->
+  <!-- ── ABOUT ── -->
+  <section class="about" id="about">
+
+    <div class="about-inner">
+
+      <div class="about-image-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=800&q=80"
+          alt="Beautiful beach in Cebu"
+          loading="lazy"
+        >
+      </div>
+
+      <div class="about-text">
+
+        <div class="section-eyebrow">
+          About ShoreSmart
+        </div>
+
+        <h2 class="section-title">
+          Plan your beach trip <span>smarter</span>
+        </h2>
+
+        <p>
+          ShoreSmart is your ultimate companion for planning
+          the perfect beach getaway in Cebu. Designed with
+          budget-conscious travelers, students, and families
+          in mind — our platform helps you discover the best
+          beaches and resorts tailored to your budget,
+          preferred location, and desired amenities.
+        </p>
+
+        <p style="margin-top: 14px;">
+          Easily compare entrance fees, facilities, and
+          special services across multiple resorts, then
+          reserve your spot directly through our system
+          for a smooth, stress-free beach experience.
+        </p>
+
+        <div class="about-pills">
+          <span class="pill">🌊 North & South Cebu</span>
+          <span class="pill">💸 Budget Filters</span>
+          <span class="pill">📋 Direct Reservations</span>
+          <span class="pill">🏡 Local Resorts</span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── FEATURES ── -->
+  <section class="features" id="features">
+
+    <div class="features-header">
+
+      <div class="section-eyebrow">
+        Why ShoreSmart
+      </div>
+
+      <h2 class="section-title">
+        Everything you need for the
+        <span>perfect getaway</span>
+      </h2>
+
+    </div>
+
+    <div class="feature-grid">
+
+      <div class="feature-card">
+
+        <div class="feature-icon">
+          <i class="fas fa-wallet"></i>
+        </div>
+
+        <h3>Budget-Friendly</h3>
+
+        <p>
+          Set your budget and instantly see resorts
+          that match your financial plan — no surprises.
+        </p>
+
+      </div>
+
+      <div class="feature-card">
+
+        <div class="feature-icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+
+        <h3>Easy Comparison</h3>
+
+        <p>
+          View prices, amenities, and locations side by side
+          to make informed choices quickly.
+        </p>
+
+      </div>
+
+      <div class="feature-card">
+
+        <div class="feature-icon">
+          <i class="fas fa-calendar-check"></i>
+        </div>
+
+        <h3>Seamless Reservation</h3>
+
+        <p>
+          Reserve your spot online, hassle-free,
+          so you can focus on what matters — having fun.
+        </p>
+
+      </div>
+
+      <div class="feature-card">
+
+        <div class="feature-icon">
+          <i class="fas fa-umbrella-beach"></i>
+        </div>
+
+        <h3>Support Local Tourism</h3>
+
+        <p>
+          Discover hidden gems and support small beach resorts
+          along Cebu's stunning coastline.
+        </p>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── HOW IT WORKS ── -->
+  <section class="how-it-works" id="how-it-works">
+
+    <div class="how-inner">
+
+      <div class="how-header">
+
+        <div class="section-eyebrow">
+          The Process
+        </div>
+
+        <h2 class="section-title">
+          How it <span>works</span>
+        </h2>
+
+        <p class="section-sub">
+          Three simple steps to your next beach adventure.
+        </p>
+
+      </div>
+
+      <div class="steps">
+
+        <div class="step">
+
+          <div class="step-number">1</div>
+
+          <h3>Create an Account</h3>
+
+          <p>
+            Sign up for free as a guest traveler
+            and set your preferences.
+          </p>
+
+        </div>
+
+        <div class="step">
+
+          <div class="step-number">2</div>
+
+          <h3>Search & Filter</h3>
+
+          <p>
+            Enter your budget and preferred location
+            to browse matching resorts.
+          </p>
+
+        </div>
+
+        <div class="step">
+
+          <div class="step-number">3</div>
+
+          <h3>Reserve & Enjoy</h3>
+
+          <p>
+            Pick your perfect stay, reserve your spot,
+            and head to the beach!
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
   <section class="cta" id="get-started">
-    <div class="container">
-      <h2>Ready to Plan Your Beach Adventure?</h2>
-      <p>Sign up or log in to start exploring beaches that fit your budget and preferences!</p>
-      <a href="login.html" class="btn-primary">Get Started</a>
+
+    <div class="cta-bg"></div>
+
+    <div class="cta-content">
+
+      <div class="cta-badge">
+        🌊 Free to Join
+      </div>
+
+      <h2 class="section-title">
+        Ready to find your
+        <span>perfect beach?</span>
+      </h2>
+
+      <p class="section-sub">
+        Join ShoreSmart today and start discovering
+        Cebu's finest beach resorts within your budget.
+      </p>
+
+      <div class="cta-actions">
+
+        <a href="login.html" class="btn-primary">
+          Get Started Free →
+        </a>
+
+        <a href="owner-register.html" class="btn-secondary">
+          List Your Resort
+        </a>
+
+      </div>
+
     </div>
   </section>
 
-  <script>
-    // Smooth Scroll for Navbar Links
-    const links = document.querySelectorAll('nav a');
-    for (const link of links) {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        const href = this.getAttribute('href');
-        document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
-      });
-    }
-  </script>
+  <!-- ── FOOTER ── -->
+  <footer>
+
+    <div class="footer-logo">
+      Shore<span>Smart</span>
+    </div>
+
+    <div class="footer-copy">
+      © 2025 ShoreSmart. All rights reserved.
+    </div>
+
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#features">Features</a>
+      <a href="owner-register.html">For Owners</a>
+    </div>
+
+  </footer>
+
+  <!-- External JavaScript -->
+  <script src="js/index.js"></script>
 
 </body>
 </html>

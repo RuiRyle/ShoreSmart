@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShoreSmart | Admin Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ocean: #0057a8; --sky: #00b4d8;
+      --dark: #0a1628; --dark2: #0d2240;
+      --muted: #6b7c93; --border: rgba(255,255,255,0.09);
+      --card-bg: rgba(255,255,255,0.04);
+      --admin: #7c3aed; --admin-light: rgba(124,58,237,0.12);
+      --pending: #d97706; --pending-bg: rgba(217,119,6,0.12);
+      --approved: #059669; --approved-bg: rgba(5,150,105,0.12);
+      --rejected: #dc2626; --rejected-bg: rgba(220,38,38,0.12);
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--dark); color: #e8f4ff; min-height: 100vh; }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; height: 64px;
+      background: rgba(10,22,40,0.9);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 20px; color: #fff; }
+    .nav-logo span { color: var(--sky); }
+    .nav-badge {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--admin-light);
+      border: 1px solid rgba(124,58,237,0.3);
+      color: #a78bfa; font-size: 12px; font-weight: 600;
+      padding: 5px 14px; border-radius: 100px;
+    }
+    .nav-right { display: flex; align-items: center; gap: 14px; }
+    .admin-name { font-size: 13px; color: var(--muted); }
+    .admin-name strong { color: #fff; }
+    .btn-logout {
+      background: rgba(255,255,255,0.06); border: 1px solid var(--border);
+      color: rgba(255,255,255,0.7); padding: 7px 16px; border-radius: 10px;
+      font-family: 'DM Sans', sans-serif; font-size: 13px; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-logout:hover { background: rgba(229,62,62,0.12); border-color: rgba(229,62,62,0.3); color: #fc8181; }
+
+    /* ── MAIN LAYOUT ── */
+    .main { max-width: 1200px; margin: 0 auto; padding: 40px 40px; }
+
+    /* ── PAGE HEADER ── */
+    .page-header { margin-bottom: 32px; }
+    .page-title { font-family: 'Playfair Display', serif; font-size: 30px; color: #fff; margin-bottom: 6px; }
+    .page-title span { color: #a78bfa; }
+    .page-sub { font-size: 14px; color: var(--muted); }
+
+    /* ── STATS ROW ── */
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 36px; }
+    .stat-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 16px; padding: 20px 22px;
+    }
+    .stat-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); margin-bottom: 8px; }
+    .stat-value { font-family: 'Playfair Display', serif; font-size: 30px; color: #fff; }
+    .stat-value.pending  { color: var(--pending); }
+    .stat-value.approved { color: var(--approved); }
+    .stat-value.rejected { color: #fc8181; }
+
+    /* ── FILTER TABS ── */
+    .filter-tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+    .tab {
+      font-size: 13px; font-weight: 600; padding: 8px 20px;
+      border-radius: 100px; border: 1px solid var(--border);
+      background: var(--card-bg); color: var(--muted);
+      cursor: pointer; transition: all 0.18s; user-select: none;
+    }
+    .tab:hover { color: #fff; border-color: rgba(255,255,255,0.2); }
+    .tab.active-all      { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); color: #fff; }
+    .tab.active-pending  { background: var(--pending-bg); border-color: rgba(217,119,6,0.4); color: #fbbf24; }
+    .tab.active-approved { background: var(--approved-bg); border-color: rgba(5,150,105,0.4); color: #34d399; }
+    .tab.active-rejected { background: var(--rejected-bg); border-color: rgba(220,38,38,0.4); color: #f87171; }
+
+    /* ── LISTINGS TABLE / CARDS ── */
+    .listings-wrap { display: flex; flex-direction: column; gap: 16px; }
+
+    .listing-row {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 18px; overflow: hidden;
+      display: grid; grid-template-columns: 140px 1fr auto;
+      transition: all 0.2s; animation: cardIn 0.3s ease both;
+    }
+    @keyframes cardIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+    .listing-row:hover { border-color: rgba(124,58,237,0.25); }
+
+    /* Image column */
+    .listing-img {
+      width: 140px; height: 120px; object-fit: cover; display: block;
+      background: rgba(255,255,255,0.05);
+    }
+    .listing-img-placeholder {
+      width: 140px; height: 120px; display: flex;
+      align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.03); font-size: 32px;
+    }
+
+    /* Info column */
+    .listing-info { padding: 16px 20px; display: flex; flex-direction: column; justify-content: space-between; }
+    .listing-top { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+    .listing-name { font-family: 'Playfair Display', serif; font-size: 17px; color: #fff; }
+    .status-badge {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.8px; padding: 3px 10px; border-radius: 100px;
+    }
+    .status-badge.pending  { background: var(--pending-bg);  border: 1px solid rgba(217,119,6,0.35); color: #fbbf24; }
+    .status-badge.approved { background: var(--approved-bg); border: 1px solid rgba(5,150,105,0.35); color: #34d399; }
+    .status-badge.rejected { background: var(--rejected-bg); border: 1px solid rgba(220,38,38,0.35); color: #f87171; }
+
+    .listing-meta { display: flex; flex-wrap: wrap; gap: 14px; }
+    .meta-item { font-size: 12px; color: var(--muted); }
+    .meta-item strong { color: rgba(255,255,255,0.75); }
+    .listing-desc { font-size: 12px; color: var(--muted); line-height: 1.5; margin-top: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .amenity-pills { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+    .pill { font-size: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.45); padding: 2px 8px; border-radius: 100px; }
+
+    /* Owner info strip */
+    .owner-strip {
+      margin-top: 10px; padding: 8px 12px;
+      background: rgba(124,58,237,0.07); border: 1px solid rgba(124,58,237,0.15);
+      border-radius: 8px; display: flex; gap: 20px; flex-wrap: wrap;
+    }
+    .owner-strip span { font-size: 11px; color: rgba(255,255,255,0.45); }
+    .owner-strip span strong { color: #a78bfa; }
+
+    /* Actions column */
+    .listing-actions {
+      padding: 16px; display: flex; flex-direction: column;
+      justify-content: center; gap: 10px; min-width: 160px;
+      border-left: 1px solid var(--border);
+    }
+
+    .btn-approve, .btn-reject, .btn-undo {
+      padding: 10px 16px; border-radius: 10px; border: 1px solid;
+      font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: all 0.2s; text-align: center;
+    }
+    .btn-approve {
+      background: var(--approved-bg); border-color: rgba(5,150,105,0.35); color: #34d399;
+    }
+    .btn-approve:hover { background: rgba(5,150,105,0.22); }
+    .btn-reject {
+      background: var(--rejected-bg); border-color: rgba(220,38,38,0.3); color: #f87171;
+    }
+    .btn-reject:hover { background: rgba(220,38,38,0.2); }
+    .btn-undo {
+      background: rgba(255,255,255,0.05); border-color: var(--border); color: var(--muted);
+    }
+    .btn-undo:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+    /* Reject reason textarea */
+    .reject-reason-wrap { margin-top: 4px; display: none; }
+    .reject-reason-wrap textarea {
+      width: 100%; background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(220,38,38,0.3); color: #fff;
+      padding: 8px 10px; border-radius: 8px;
+      font-family: 'DM Sans', sans-serif; font-size: 12px;
+      resize: none; min-height: 60px; outline: none;
+    }
+    .btn-confirm-reject {
+      margin-top: 6px; width: 100%; padding: 8px;
+      background: rgba(220,38,38,0.15); border: 1px solid rgba(220,38,38,0.3);
+      color: #f87171; border-radius: 8px;
+      font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-confirm-reject:hover { background: rgba(220,38,38,0.25); }
+
+    /* Empty / loading states */
+    .state-box { text-align: center; padding: 60px 20px; color: var(--muted); }
+    .state-box h3 { font-size: 16px; color: rgba(255,255,255,0.25); margin-bottom: 8px; }
+    .state-box p { font-size: 13px; }
+    .spinner {
+      display: inline-block; width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.15); border-top-color: #a78bfa;
+      border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 8px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Toast notification */
+    .toast {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      background: rgba(10,22,40,0.95); border: 1px solid var(--border);
+      backdrop-filter: blur(16px); border-radius: 12px;
+      padding: 14px 20px; font-size: 13px; font-weight: 500;
+      max-width: 300px; display: none;
+      animation: toastIn 0.3s ease;
+    }
+    @keyframes toastIn { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform: translateY(0); } }
+    .toast.success { border-color: rgba(5,150,105,0.4); color: #34d399; }
+    .toast.error   { border-color: rgba(220,38,38,0.4);  color: #f87171; }
+
+    @media (max-width: 768px) {
+      .listing-row { grid-template-columns: 1fr; }
+      .listing-img, .listing-img-placeholder { width: 100%; height: 160px; }
+      .listing-actions { border-left: none; border-top: 1px solid var(--border); flex-direction: row; flex-wrap: wrap; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .navbar { padding: 0 20px; }
+      .main { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-logo">Shore<span>Smart</span></div>
+  <div class="nav-badge">🛡️ Admin Panel</div>
+  <div class="nav-right">
+    <div class="admin-name">Signed in as <strong id="admin-name-display">Admin</strong></div>
+    <button class="btn-logout" id="logout-btn">Logout</button>
+  </div>
+</nav>
+
+<div class="main">
+  <div class="page-header">
+    <h1 class="page-title">Store <span>Verification</span></h1>
+    <p class="page-sub">Review and approve beach resort listings before they appear to customers.</p>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">Total listings</div>
+      <div class="stat-value" id="stat-total">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Pending review</div>
+      <div class="stat-value pending" id="stat-pending">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Approved</div>
+      <div class="stat-value approved" id="stat-approved">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Rejected</div>
+      <div class="stat-value rejected" id="stat-rejected">—</div>
+    </div>
+  </div>
+
+  <!-- Filter tabs -->
+  <div class="filter-tabs">
+    <div class="tab active-all" data-filter="all" onclick="setFilter('all', this)">All listings</div>
+    <div class="tab" data-filter="pending"  onclick="setFilter('pending', this)">⏳ Pending</div>
+    <div class="tab" data-filter="approved" onclick="setFilter('approved', this)">✅ Approved</div>
+    <div class="tab" data-filter="rejected" onclick="setFilter('rejected', this)">❌ Rejected</div>
+  </div>
+
+  <!-- Listings -->
+  <div class="listings-wrap" id="listings-wrap">
+    <div class="state-box"><span class="spinner"></span> Loading listings...</div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import {
+    getFirestore, collection, getDocs, doc, updateDoc
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAAv74YNJR8FXhQ-cbvDW-yBaCECyS_D30",
+    authDomain: "shoresmart-5fc2d.firebaseapp.com",
+    projectId: "shoresmart-5fc2d",
+    storageBucket: "shoresmart-5fc2d.firebasestorage.app",
+    messagingSenderId: "1035637427343",
+    appId: "1:1035637427343:web:4f8728e2efe1c62058f4fa"
+  };
+
+  const app  = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db   = getFirestore(app);
+
+  // Keep this in sync with admin-login.html
+  const ADMIN_EMAILS = ['admin@gmail.com'];
+
+  let allListings   = [];
+  let currentFilter = 'all';
+
+  // ── Auth guard: check email against whitelist ──
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) { window.location.href = 'admin-login.html'; return; }
+
+    if (!ADMIN_EMAILS.includes(user.email.toLowerCase())) {
+      await signOut(auth);
+      window.location.href = 'login.html';
+      return;
+    }
+
+    document.getElementById('admin-name-display').textContent = user.email;
+    loadListings();
+  });
+
+  // ── Logout ──
+  document.getElementById('logout-btn').addEventListener('click', async () => {
+    await signOut(auth);
+    window.location.href = 'admin-login.html';
+  });
+
+  // ── Load all listings + enrich with owner info ──
+  async function loadListings() {
+    const wrap = document.getElementById('listings-wrap');
+    wrap.innerHTML = '<div class="state-box"><span class="spinner"></span> Loading listings...</div>';
+
+    try {
+      const snap = await getDocs(collection(db, 'beaches'));
+      const raw  = [];
+      snap.forEach(d => raw.push({ id: d.id, ...d.data() }));
+
+      // Sort: pending first, then by createdAt desc
+      raw.sort((a, b) => {
+        const order = { pending: 0, approved: 1, rejected: 2 };
+        if (order[a.status] !== order[b.status]) return order[a.status] - order[b.status];
+        return (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0);
+      });
+
+      // Enrich with owner profile from users collection
+      const ownerCache = {};
+      for (const l of raw) {
+        if (l.ownerId && !ownerCache[l.ownerId]) {
+          try {
+            const ownerDoc = await getDoc(doc(db, 'users', l.ownerId));
+            ownerCache[l.ownerId] = ownerDoc.exists() ? ownerDoc.data() : null;
+          } catch (_) { ownerCache[l.ownerId] = null; }
+        }
+        l._owner = ownerCache[l.ownerId] || null;
+      }
+
+      allListings = raw;
+      updateStats();
+      renderListings();
+
+    } catch (err) {
+      wrap.innerHTML = `<div class="state-box"><h3>Error loading listings</h3><p>${err.message}</p></div>`;
+    }
+  }
+
+  // ── Stats ──
+  function updateStats() {
+    const total    = allListings.length;
+    const pending  = allListings.filter(l => l.status === 'pending').length;
+    const approved = allListings.filter(l => l.status === 'approved').length;
+    const rejected = allListings.filter(l => l.status === 'rejected').length;
+    document.getElementById('stat-total').textContent    = total;
+    document.getElementById('stat-pending').textContent  = pending;
+    document.getElementById('stat-approved').textContent = approved;
+    document.getElementById('stat-rejected').textContent = rejected;
+  }
+
+  // ── Render ──
+  function renderListings() {
+    const wrap = document.getElementById('listings-wrap');
+    const list = currentFilter === 'all'
+      ? allListings
+      : allListings.filter(l => l.status === currentFilter);
+
+    if (list.length === 0) {
+      wrap.innerHTML = `
+        <div class="state-box">
+          <h3>No ${currentFilter === 'all' ? '' : currentFilter} listings</h3>
+          <p>${currentFilter === 'pending' ? 'All caught up! No listings awaiting review.' : 'Nothing to show here.'}</p>
+        </div>`;
+      return;
+    }
+
+    wrap.innerHTML = list.map(l => renderRow(l)).join('');
+    attachActions();
+  }
+
+  function renderRow(l) {
+    const status    = l.status || 'pending';
+    const locLabel  = l.location === 'north' ? 'North Cebu' : 'South Cebu';
+    const pills     = (l.amenities || []).map(a => `<span class="pill">${a}</span>`).join('');
+    const ownerName = l._owner ? (l._owner.businessName || l._owner.fullName || '—') : '—';
+    const ownerContact = l._owner ? (l._owner.contact || '—') : '—';
+    const ownerEmail   = l._owner ? (l._owner.email || '—') : '—';
+
+    const imgHtml = l.image
+      ? `<img class="listing-img" src="${l.image}" alt="${l.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+      : '';
+    const imgPlaceholder = `<div class="listing-img-placeholder" style="${l.image ? 'display:none' : ''}">🏖️</div>`;
+
+    const isPending  = status === 'pending';
+    const isApproved = status === 'approved';
+
+    const actionBtns = isPending ? `
+      <button class="btn-approve" data-id="${l.id}">✅ Approve</button>
+      <button class="btn-reject"  data-id="${l.id}">❌ Reject</button>
+      <div class="reject-reason-wrap" id="reason-wrap-${l.id}">
+        <textarea id="reason-${l.id}" placeholder="Reason for rejection (optional)..."></textarea>
+        <button class="btn-confirm-reject" data-id="${l.id}">Confirm Rejection</button>
+      </div>
+    ` : `
+      <button class="btn-undo" data-id="${l.id}" data-action="${isApproved ? 'unapprove' : 'unreject'}">
+        ${isApproved ? '↩ Revoke approval' : '↩ Move to pending'}
+      </button>
+    `;
+
+    return `
+      <div class="listing-row" id="row-${l.id}">
+        ${imgHtml}
+        ${imgPlaceholder}
+        <div class="listing-info">
+          <div>
+            <div class="listing-top">
+              <span class="listing-name">${l.name}</span>
+              <span class="status-badge ${status}">${status}</span>
+            </div>
+            <div class="listing-meta">
+              <div class="meta-item">📍 <strong>${locLabel}</strong></div>
+              <div class="meta-item">💰 <strong>₱${Number(l.price || 0).toLocaleString()}/night</strong></div>
+              ${l.contact ? `<div class="meta-item">📞 <strong>${l.contact}</strong></div>` : ''}
+              ${l.website ? `<div class="meta-item">🔗 <a href="${l.website}" style="color:var(--sky)">Website</a></div>` : ''}
+            </div>
+            ${l.description ? `<div class="listing-desc">${l.description}</div>` : ''}
+            ${pills ? `<div class="amenity-pills">${pills}</div>` : ''}
+            ${l.rejectionReason ? `<div style="margin-top:8px;font-size:12px;color:#f87171;">Rejection reason: ${l.rejectionReason}</div>` : ''}
+          </div>
+          <div class="owner-strip">
+            <span>🏢 <strong>${ownerName}</strong></span>
+            <span>📧 <strong>${ownerEmail}</strong></span>
+            <span>📱 <strong>${ownerContact}</strong></span>
+          </div>
+        </div>
+        <div class="listing-actions">
+          ${actionBtns}
+        </div>
+      </div>`;
+  }
+
+  // ── Attach button events ──
+  function attachActions() {
+    // Approve
+    document.querySelectorAll('.btn-approve').forEach(btn => {
+      btn.addEventListener('click', () => updateStatus(btn.dataset.id, 'approved'));
+    });
+
+    // Show reject textarea
+    document.querySelectorAll('.btn-reject').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const wrap = document.getElementById(`reason-wrap-${btn.dataset.id}`);
+        wrap.style.display = wrap.style.display === 'block' ? 'none' : 'block';
+      });
+    });
+
+    // Confirm rejection
+    document.querySelectorAll('.btn-confirm-reject').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const reason = document.getElementById(`reason-${btn.dataset.id}`).value.trim();
+        updateStatus(btn.dataset.id, 'rejected', reason);
+      });
+    });
+
+    // Undo (revoke or move to pending)
+    document.querySelectorAll('.btn-undo').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const action = btn.dataset.action;
+        updateStatus(btn.dataset.id, action === 'unapprove' ? 'pending' : 'pending');
+      });
+    });
+  }
+
+  // ── Update listing status ──
+  async function updateStatus(id, newStatus, rejectionReason = '') {
+    try {
+      const payload = {
+        status: newStatus,
+        reviewedAt: new Date().toISOString(),
+        rejectionReason: rejectionReason || ''
+      };
+      await updateDoc(doc(db, 'beaches', id), payload);
+
+      // Update local state
+      const idx = allListings.findIndex(l => l.id === id);
+      if (idx !== -1) {
+        allListings[idx].status = newStatus;
+        allListings[idx].rejectionReason = rejectionReason;
+      }
+
+      updateStats();
+      renderListings();
+
+      const messages = {
+        approved: '✅ Listing approved — now visible to customers.',
+        rejected: '❌ Listing rejected.',
+        pending:  '↩ Listing moved back to pending.'
+      };
+      showToast(messages[newStatus] || 'Status updated.', newStatus === 'rejected' ? 'error' : 'success');
+
+    } catch (err) {
+      showToast('Error: ' + err.message, 'error');
+    }
+  }
+
+  // ── Filter tabs ──
+  window.setFilter = function (filter, el) {
+    currentFilter = filter;
+    document.querySelectorAll('.tab').forEach(t => {
+      t.className = 'tab';
+    });
+    el.classList.add(`active-${filter}`);
+    renderListings();
+  };
+
+  // ── Toast ──
+  function showToast(msg, type = 'success') {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.className = `toast ${type}`;
+    toast.style.display = 'block';
+    setTimeout(() => { toast.style.display = 'none'; }, 3500);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShoreSmart | Owner Login</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="css/owner-login.css">
+</head>
+
+<body>
+
+<div class="page-wrapper">
+
+  <div class="brand">
+    <div class="brand-logo">Shore<span>Smart</span></div>
+    <div class="brand-sub">Beach & Resort Marketplace · Cebu</div>
+  </div>
+
+  <div class="card">
+
+    <div class="owner-badge">
+      🏠 Owner Portal
+    </div>
+
+    <h1 class="card-title">
+      Welcome back
+    </h1>
+
+    <p class="card-desc">
+      Sign in to manage your beach property listings.
+    </p>
+
+    <div id="alert-box" class="alert"></div>
+
+    <form id="login-form">
+
+      <label>Email Address</label>
+
+      <input
+        type="email"
+        id="email"
+        placeholder="owner@resort.com"
+        required
+      >
+
+      <label>Password</label>
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Your password"
+        required
+      >
+
+      <button
+        type="submit"
+        class="btn-submit"
+        id="submit-btn"
+      >
+        Sign In
+      </button>
+
+    </form>
+
+    <div class="footer-links">
+
+      Don't have an account?
+      <a href="owner-register.html">
+        Register as owner
+      </a>
+
+      <br><br>
+
+      Are you a guest?
+      <a href="login.html">
+        Guest login
+      </a>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- External JS -->
+<script type="module" src="js/owner-login.js"></script>
+
+</body>
+</html>

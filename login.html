@@ -1,48 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ShoreSmart | Login / Register</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShoreSmart | Login & Register</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- External CSS -->
   <link rel="stylesheet" href="css/login.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-<section class="auth-hero">
-  <div class="overlay"></div>
+<!-- Floating particles -->
+<div class="particle" style="width:6px;height:6px;left:15%;animation-duration:14s;animation-delay:0s"></div>
+<div class="particle" style="width:4px;height:4px;left:35%;animation-duration:18s;animation-delay:-5s"></div>
+<div class="particle" style="width:8px;height:8px;left:60%;animation-duration:12s;animation-delay:-8s"></div>
+<div class="particle" style="width:5px;height:5px;left:80%;animation-duration:20s;animation-delay:-3s"></div>
+<div class="particle" style="width:3px;height:3px;left:50%;animation-duration:16s;animation-delay:-11s"></div>
 
-  <div class="auth-container">
+<!-- Wave layers -->
+<div class="wave-bottom"></div>
+<div class="wave-bottom"></div>
+
+<div class="page-wrapper">
+
+  <!-- Brand -->
+  <div class="brand">
+    <span class="brand-icon">🌊</span>
+    <div class="brand-logo">Shore<span>Smart</span></div>
+    <div class="brand-tagline">Discover Cebu's finest beach getaways</div>
+  </div>
+
+  <!-- Card -->
+  <div class="card">
 
     <!-- Tabs -->
-    <div class="auth-tabs">
-      <button id="login-tab" class="active">Login</button>
-      <button id="register-tab">Register</button>
+    <div class="tabs">
+      <button class="tab-btn active" id="login-tab">Sign In</button>
+      <button class="tab-btn" id="register-tab">Create Account</button>
     </div>
 
-    <!-- LOGIN FORM -->
-    <form id="login-form" class="auth-form">
-      <input type="email" id="login-email" placeholder="Email" required>
-      <input type="password" id="login-password" placeholder="Password" required>
-      <button type="submit" class="btn-primary">Login</button>
-    </form>
+    <!-- LOGIN PANEL -->
+    <div class="form-panel" id="login-panel">
+      <div class="panel-header">
+        <div class="panel-title">Welcome back</div>
+        <div class="panel-sub">
+          Sign in to explore and reserve beach properties across Cebu.
+        </div>
+      </div>
 
-    <!-- REGISTER FORM -->
-    <form id="register-form" class="auth-form hidden">
-      <input type="text" placeholder="Full Name" required>
-      <input type="email" placeholder="Email" required>
-      <input type="password" placeholder="Password" required>
-      <input type="password" placeholder="Confirm Password" required>
-      <button type="submit" class="btn-primary">Register</button>
-    </form>
+      <div id="login-alert" class="alert"></div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="login-email" placeholder="your@email.com" required>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="login-password" placeholder="Your password" required>
+        </div>
+
+        <button type="submit" class="btn-submit" id="login-btn">
+          Sign In
+        </button>
+      </form>
+
+      <div class="owner-box">
+        <div class="owner-box-text">
+          <strong>Are you a resort owner?</strong>
+          List and manage your beach property
+        </div>
+
+        <a href="owner-register.html" class="owner-box-link">
+          Owner Portal →
+        </a>
+      </div>
+    </div>
+
+    <!-- REGISTER PANEL -->
+    <div class="form-panel hidden" id="register-panel">
+
+      <div class="panel-header">
+        <div class="panel-title">Join ShoreSmart</div>
+        <div class="panel-sub">
+          Create a free guest account to reserve beach properties.
+        </div>
+      </div>
+
+      <div id="register-alert" class="alert"></div>
+
+      <form id="register-form">
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" id="reg-fname" placeholder="Juan" required>
+          </div>
+
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" id="reg-lname" placeholder="dela Cruz" required>
+          </div>
+
+        </div>
+
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="reg-email" placeholder="your@email.com" required>
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="reg-password" placeholder="Min. 8 chars" required>
+          </div>
+
+          <div class="form-group">
+            <label>Confirm</label>
+            <input type="password" id="reg-confirm" placeholder="Repeat" required>
+          </div>
+
+        </div>
+
+        <button type="submit" class="btn-submit" id="register-btn">
+          Create Account
+        </button>
+
+      </form>
+
+      <div class="owner-box">
+        <div class="owner-box-text">
+          <strong>Listing a property?</strong>
+          Register as a store owner instead
+        </div>
+
+        <a href="owner-register.html" class="owner-box-link">
+          Owner Sign Up →
+        </a>
+      </div>
+
+    </div>
 
   </div>
-</section>
+</div>
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-</script>
-
+<!-- External JavaScript -->
 <script type="module" src="js/main.js"></script>
+
 </body>
 </html>
