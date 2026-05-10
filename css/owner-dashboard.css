@@ -302,3 +302,213 @@ textarea {
     padding: 0 20px;
   }
 }
+
+.owner-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0;
+}
+ 
+.owner-tab {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.2px;
+  margin-bottom: -1px;
+}
+ 
+.owner-tab:hover { color: rgba(255,255,255,0.7); }
+ 
+.owner-tab.active {
+  color: #fff;
+  border-bottom-color: var(--sky);
+}
+ 
+/* Pending count badge on tab */
+.res-badge {
+  background: var(--pending, #d97706);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 100px;
+  line-height: 1.4;
+  min-width: 18px;
+  text-align: center;
+}
+ 
+/* ── RESERVATIONS SECTION HEADER ── */
+.res-section-header { margin-bottom: 24px; }
+ 
+.res-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 6px;
+}
+ 
+.res-section-title span { color: var(--sky); }
+ 
+.res-section-sub {
+  font-size: 13px;
+  color: var(--muted);
+}
+ 
+/* ── RESERVATION CARDS ── */
+.res-booking-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 20px 22px;
+  margin-bottom: 14px;
+  transition: all 0.2s;
+  animation: cardIn 0.3s ease both;
+}
+ 
+.res-booking-card:hover {
+  border-color: rgba(0,180,216,0.2);
+}
+ 
+.res-booking-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+ 
+.res-booking-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  color: #fff;
+  margin-bottom: 4px;
+}
+ 
+.res-booking-guest {
+  font-size: 12px;
+  color: var(--muted);
+}
+ 
+.res-booking-guest strong { color: rgba(255,255,255,0.65); }
+ 
+/* Status badge — reuses same style as listing status badges */
+.res-status {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 3px 10px;
+  border-radius: 100px;
+  flex-shrink: 0;
+}
+ 
+.res-status.pending  { background: rgba(217,119,6,0.15);  border: 1px solid rgba(217,119,6,0.35);  color: #fbbf24; }
+.res-status.confirmed{ background: rgba(5,150,105,0.15);  border: 1px solid rgba(5,150,105,0.35);  color: #34d399; }
+.res-status.declined { background: rgba(220,38,38,0.12);  border: 1px solid rgba(220,38,38,0.3);   color: #f87171; }
+ 
+/* Info grid */
+.res-booking-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+ 
+.res-info-cell {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+ 
+.res-info-cell.highlight {
+  background: rgba(0,180,216,0.07);
+  border-color: rgba(0,180,216,0.18);
+}
+ 
+.res-info-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+ 
+.res-info-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+}
+ 
+.res-info-cell.highlight .res-info-value {
+  font-size: 15px;
+  color: var(--sky);
+}
+ 
+/* Notes */
+.res-booking-notes {
+  font-size: 12px;
+  color: var(--muted);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+ 
+/* Action buttons */
+.res-actions {
+  display: flex;
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+ 
+.res-btn {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid;
+  text-align: center;
+}
+ 
+.res-btn.confirm {
+  background: rgba(5,150,105,0.1);
+  border-color: rgba(5,150,105,0.3);
+  color: #34d399;
+}
+.res-btn.confirm:hover { background: rgba(5,150,105,0.2); }
+ 
+.res-btn.decline {
+  background: rgba(220,38,38,0.08);
+  border-color: rgba(220,38,38,0.25);
+  color: #f87171;
+}
+.res-btn.decline:hover { background: rgba(220,38,38,0.18); }
+ 
+.res-btn.undo {
+  background: rgba(255,255,255,0.04);
+  border-color: var(--border);
+  color: var(--muted);
+}
+.res-btn.undo:hover { background: rgba(255,255,255,0.08); color: #fff; }

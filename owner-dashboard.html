@@ -147,20 +147,42 @@
 
   </aside>
 
-  <!-- MAIN -->
-  <main class="main">
+ <!-- MAIN -->
+<main class="main">
 
-    <div class="main-header">
-      <div>
-        <div class="main-title">
-          Your <span>Listings</span>
-        </div>
-      </div>
-
-      <div class="listings-count" id="listings-count">
-        Loading...
+  <!-- HEADER -->
+  <div class="main-header">
+    <div>
+      <div class="main-title">
+        Your <span>Listings</span>
       </div>
     </div>
+
+    <div class="listings-count" id="listings-count">
+      Loading...
+    </div>
+  </div>
+
+  <!-- OWNER TABS -->
+  <div class="owner-tabs">
+    <button id="tab-listings"
+            class="owner-tab active"
+            onclick="showOwnerTab('listings')">
+      🏖️ My Listings
+    </button>
+
+    <button id="tab-reservations"
+            class="owner-tab"
+            onclick="showOwnerTab('reservations')">
+      📋 Reservations
+      <span id="res-tab-badge"
+            class="res-badge"
+            style="display:none;"></span>
+    </button>
+  </div>
+
+  <!-- LISTINGS SECTION -->
+  <div id="listings-section">
 
     <div class="stats-bar">
 
@@ -170,8 +192,13 @@
       </div>
 
       <div class="stat-card">
-        <div class="stat-label">Lowest Price</div>
-        <div class="stat-value" id="stat-min">—</div>
+        <div class="stat-label">Pending Review</div>
+        <div class="stat-value" id="stat-pending">—</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Approved Listings</div>
+        <div class="stat-value" id="stat-approved">—</div>
       </div>
 
       <div class="stat-card">
@@ -187,12 +214,32 @@
       </div>
     </div>
 
-  </main>
+  </div>
+
+  <!-- RESERVATIONS SECTION -->
+  <div id="reservations-section" style="display:none;">
+
+    <div class="res-section-header">
+      <div class="res-section-title">
+        Guest <span>Reservations</span>
+      </div>
+
+      <div class="res-section-sub">
+        Confirm or decline booking requests from guests.
+      </div>
+    </div>
+
+    <div id="reservations-wrap"></div>
+
+  </div>
+
+</main>
 
 </div>
 
 <!-- External JS -->
 <script type="module" src="js/owner-dashboard.js"></script>
+<script type="module" src="js/owner-reservations.js"></script>
 
 </body>
 </html>

@@ -10,6 +10,254 @@
     <!-- CSS FILE -->
     <link rel="stylesheet" href="css/dashboard.css">
   </head>
+  <div id="reserve-modal" class="res-overlay">
+  <div class="res-card">
+ 
+    <button class="res-close" onclick="closeReserveModal()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+ 
+    <div class="res-header">
+      <div class="res-eyebrow">Reserve Your Stay</div>
+      <div class="res-title" id="modal-beach-name">Beach Name</div>
+      <div class="res-meta">
+        <span class="res-price-tag" id="modal-beach-price"></span>
+        <span class="res-dot">·</span>
+        <span id="modal-beach-location"></span>
+      </div>
+    </div>
+ 
+    <div class="res-body">
+ 
+      <div id="modal-alert" class="res-alert" style="display:none;"></div>
+ 
+      <form id="reserve-form">
+ 
+        <div class="res-field">
+          <label>Full Name</label>
+          <input type="text" id="res-name" placeholder="Your full name" required>
+        </div>
+ 
+        <div class="res-row">
+          <div class="res-field">
+            <label>Check-in</label>
+            <input type="date" id="res-checkin" required>
+          </div>
+          <div class="res-field">
+            <label>Check-out</label>
+            <input type="date" id="res-checkout" required>
+          </div>
+        </div>
+ 
+        <div id="night-count" class="res-night-pill" style="display:none;"></div>
+ 
+        <div class="res-field">
+          <label>Number of Guests</label>
+          <select id="res-guests" required>
+            <option value="">Select guests</option>
+            <option value="1">1 guest</option>
+            <option value="2">2 guests</option>
+            <option value="3">3 guests</option>
+            <option value="4">4 guests</option>
+            <option value="5">5 guests</option>
+            <option value="6">6+ guests</option>
+          </select>
+        </div>
+ 
+        <div class="res-field">
+          <label>Special Requests <span class="res-opt">(optional)</span></label>
+          <textarea id="res-notes" placeholder="Early check-in, dietary needs, accessibility requirements..."></textarea>
+        </div>
+ 
+        <button type="submit" class="res-submit-btn" id="modal-submit-btn">
+          Confirm Reservation
+        </button>
+      </form>
+ 
+      <!-- Success state -->
+      <div id="modal-success" class="res-success" style="display:none;">
+        <div class="res-success-icon">🎉</div>
+        <h3 class="res-success-title">Reservation Submitted!</h3>
+        <p class="res-success-sub">Your request has been sent to the resort owner. They will confirm or decline your booking shortly.</p>
+        <div class="res-summary">
+          <div class="res-summary-row"><span>Resort</span><strong id="success-beach-name"></strong></div>
+          <div class="res-summary-row"><span>Dates</span><strong id="success-dates"></strong></div>
+          <div class="res-summary-row"><span>Total</span><strong id="success-total" style="color:var(--sky);"></strong></div>
+        </div>
+        <button class="res-done-btn" onclick="closeReserveModal()">Done</button>
+      </div>
+ 
+      <!-- Contact fallback -->
+      <div id="modal-contact-wrap" class="res-contact" style="display:none;">
+        <div class="res-contact-label">📞 Or contact the resort directly</div>
+        <div class="res-contact-row">
+          <span id="modal-contact-number"></span>
+          <a id="modal-contact-website" href="#" target="_blank"></a>
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+</div>
+<style>
+/* ── MODAL OVERLAY ── */
+.res-overlay {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(5,12,26,0.88);
+  backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.res-overlay.open { opacity: 1; pointer-events: all; }
+ 
+/* ── CARD ── */
+.res-card {
+  background: var(--dark2);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  width: 100%; max-width: 500px; max-height: 90vh;
+  overflow-y: auto; position: relative;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.03) inset;
+  transform: translateY(24px);
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+  scrollbar-width: thin; scrollbar-color: rgba(0,180,216,0.2) transparent;
+}
+.res-overlay.open .res-card { transform: translateY(0); }
+ 
+/* ── CLOSE ── */
+.res-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.5);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.2s; z-index: 1;
+}
+.res-close:hover { background: rgba(229,62,62,0.15); border-color: rgba(229,62,62,0.3); color: #fc8181; }
+ 
+/* ── HEADER ── */
+.res-header {
+  padding: 28px 28px 22px;
+  border-bottom: 1px solid var(--border);
+  background:
+    radial-gradient(ellipse at 80% 0%, rgba(0,180,216,0.1) 0%, transparent 60%),
+    radial-gradient(ellipse at 10% 100%, rgba(0,87,168,0.12) 0%, transparent 55%);
+}
+.res-eyebrow {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.5px; color: var(--sky); margin-bottom: 10px;
+  display: flex; align-items: center; gap: 6px;
+}
+.res-eyebrow::before { content:''; width:16px; height:1px; background:var(--sky); opacity:0.5; }
+.res-title { font-family:'Playfair Display',serif; font-size:22px; color:#fff; margin-bottom:8px; line-height:1.2; }
+.res-meta  { display:flex; align-items:center; gap:8px; font-size:13px; color:var(--muted); }
+.res-price-tag { color:var(--sky); font-weight:600; }
+.res-dot { opacity:0.3; }
+ 
+/* ── BODY ── */
+.res-body { padding: 24px 28px 28px; }
+ 
+/* ── ALERT ── */
+.res-alert { padding:10px 14px; border-radius:10px; font-size:12px; font-weight:500; margin-bottom:16px; line-height:1.4; }
+.res-alert.error { background:rgba(229,62,62,0.1); border:1px solid rgba(229,62,62,0.25); color:#fc8181; }
+ 
+/* ── FIELDS ── */
+.res-field { margin-bottom:16px; }
+.res-row   { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+ 
+.res-field label {
+  display:block; font-size:11px; font-weight:600;
+  color:rgba(255,255,255,0.4); text-transform:uppercase;
+  letter-spacing:0.8px; margin-bottom:7px;
+}
+.res-opt { text-transform:none; letter-spacing:0; font-weight:400; color:var(--muted); font-size:10px; }
+ 
+.res-field input,
+.res-field select,
+.res-field textarea {
+  width:100%; background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1); color:#fff;
+  padding:11px 14px; border-radius:12px;
+  font-family:'DM Sans',sans-serif; font-size:14px; outline:none; transition:all 0.2s;
+}
+.res-field input::placeholder,
+.res-field textarea::placeholder { color:rgba(255,255,255,0.2); }
+.res-field input:focus,
+.res-field select:focus,
+.res-field textarea:focus {
+  border-color:var(--sky); background:rgba(0,180,216,0.07);
+  box-shadow:0 0 0 3px rgba(0,180,216,0.12);
+}
+.res-field select option { background:var(--dark2); color:#fff; }
+.res-field textarea { min-height:72px; resize:vertical; line-height:1.55; }
+ 
+/* ── NIGHT COUNT ── */
+.res-night-pill {
+  font-size:12px; font-weight:600; color:var(--sky);
+  background:rgba(0,180,216,0.08); border:1px solid rgba(0,180,216,0.18);
+  padding:9px 14px; border-radius:10px; margin-bottom:16px; text-align:center;
+}
+ 
+/* ── SUBMIT BUTTON ── */
+.res-submit-btn {
+  width:100%; padding:14px;
+  background:linear-gradient(135deg, var(--ocean), var(--sky));
+  color:#fff; border:none; border-radius:14px;
+  font-family:'DM Sans',sans-serif; font-size:15px; font-weight:600;
+  cursor:pointer; letter-spacing:0.3px; transition:all 0.25s; margin-top:4px;
+}
+.res-submit-btn:hover { transform:translateY(-2px); box-shadow:0 12px 28px rgba(0,180,216,0.3); }
+.res-submit-btn:disabled { opacity:0.5; cursor:not-allowed; transform:none; box-shadow:none; }
+ 
+/* ── SUCCESS ── */
+.res-success { text-align:center; padding:8px 0; }
+.res-success-icon { font-size:52px; margin-bottom:16px; animation:popIn 0.4s cubic-bezier(0.22,1,0.36,1) both; }
+@keyframes popIn { from{transform:scale(0.5);opacity:0;} to{transform:scale(1);opacity:1;} }
+.res-success-title { font-family:'Playfair Display',serif; font-size:22px; color:#fff; margin-bottom:8px; }
+.res-success-sub { font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:24px; }
+ 
+.res-summary {
+  background:rgba(255,255,255,0.04); border:1px solid var(--border);
+  border-radius:14px; padding:16px 20px; margin-bottom:20px; text-align:left;
+}
+.res-summary-row {
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:13px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.05);
+}
+.res-summary-row:last-child { border-bottom:none; }
+.res-summary-row span   { color:var(--muted); }
+.res-summary-row strong { color:#fff; }
+ 
+.res-done-btn {
+  background:rgba(255,255,255,0.06); border:1px solid var(--border);
+  color:rgba(255,255,255,0.7); padding:11px 32px; border-radius:100px;
+  font-family:'DM Sans',sans-serif; font-size:14px; font-weight:500;
+  cursor:pointer; transition:all 0.2s;
+}
+.res-done-btn:hover { background:rgba(255,255,255,0.1); color:#fff; }
+ 
+/* ── CONTACT FALLBACK ── */
+.res-contact {
+  margin-top:20px; padding:14px 16px;
+  background:rgba(0,180,216,0.06); border:1px solid rgba(0,180,216,0.15); border-radius:12px;
+}
+.res-contact-label {
+  font-size:10px; font-weight:700; text-transform:uppercase;
+  letter-spacing:1px; color:var(--sky); margin-bottom:7px;
+}
+.res-contact-row { font-size:13px; color:rgba(255,255,255,0.55); display:flex; gap:14px; flex-wrap:wrap; }
+.res-contact-row a { color:var(--sky); text-decoration:none; }
+.res-contact-row a:hover { text-decoration:underline; }
+ 
+@media (max-width:480px) {
+  .res-row { grid-template-columns:1fr; }
+  .res-header, .res-body { padding-left:20px; padding-right:20px; }
+}
+</style>
 
   <body>
 

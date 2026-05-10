@@ -299,3 +299,32 @@ function resetImagePreview() {
   document.getElementById('img-preview').className = 'img-preview';
   document.getElementById('img-placeholder').style.display = 'flex';
 }
+
+// ── TAB SWITCHING ──
+window.showOwnerTab = function(tab) {
+
+  const listingsTab = document.getElementById('tab-listings');
+  const reservationsTab = document.getElementById('tab-reservations');
+
+  const listingsSection = document.getElementById('listings-section');
+  const reservationsSection = document.getElementById('reservations-section');
+
+  // reset tabs
+  listingsTab.classList.remove('active');
+  reservationsTab.classList.remove('active');
+
+  // hide sections
+  listingsSection.style.display = 'none';
+  reservationsSection.style.display = 'none';
+
+  // show selected
+  if (tab === 'listings') {
+    listingsTab.classList.add('active');
+    listingsSection.style.display = 'block';
+  }
+
+  if (tab === 'reservations') {
+    reservationsTab.classList.add('active');
+    reservationsSection.style.display = 'block';
+  }
+};
